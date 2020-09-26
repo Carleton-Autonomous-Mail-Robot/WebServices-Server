@@ -16,7 +16,10 @@ good: Encryptions are secure, no action needs to be taken
 
 repeat: Previous message needs to be repeated
 
-
+## ID:
+ A client ID which is given by the client when communicating with the server
+ Server responses may not include ID
+ 
 ## Payload:
  Anything, we do not care.
 
