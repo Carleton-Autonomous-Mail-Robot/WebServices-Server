@@ -24,6 +24,8 @@ To install required libraries, run the following commands in WebServices-Server 
 > pip3 install -r requirements.txt
 
 ## Running:
+To run the server, run the following commands in the src directory
+
 > export FLASK_APP=server_client_interface.py
 
 >flask run
