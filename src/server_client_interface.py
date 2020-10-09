@@ -1,9 +1,14 @@
-from server_controller import Controller
 from flask import Flask,request,jsonify
 
 app = Flask(__name__)
 
 
-@app.route('/inbox',methods=['POST'])
+@app.route('/',methods=['POST'])
 def inbox():
-	return jsonify(status = 'good',package='test')
+	if request.get_json() is None:
+		return jsonify(status='bad')
+	
+	req = request.get_json()
+
+	if req['payload'] is 'good':
+		return jsonify(status='good',msg='test')
