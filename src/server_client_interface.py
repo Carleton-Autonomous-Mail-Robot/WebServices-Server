@@ -9,7 +9,7 @@ clients = {}
 
 
 @app.route('/',methods=['POST'])
-def inbox():
+def inbox():	
 	if request.get_json() is None:
 		return jsonify(status='bad')
 	
@@ -37,6 +37,6 @@ def __leaveMessage(clientID,msg):
 
 def __getMessage(clientID):
 	try:
-		return jsonify(status='done',payload=clients[clientID].nextMessage())
+		return jsonify(status='good',payload=clients[clientID].nextMessage())
 	except:
 		return jsonify(status='done')
