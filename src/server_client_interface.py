@@ -1,6 +1,11 @@
 from flask import Flask,request,jsonify
+from src.client import Client
+import json
 
 app = Flask(__name__)
+
+clients = {}
+
 
 
 @app.route('/',methods=['POST'])
@@ -8,7 +13,30 @@ def inbox():
 	if request.get_json() is None:
 		return jsonify(status='bad')
 	
-	req = request.get_json()
+	
+	json = request.get_json()
 
-	if req['payload'] is 'good':
-		return jsonify(status='good',msg='test')
+
+	if json['opperation'] == 'getMessage':
+		return __getMessage(json['clientID'])
+	elif json['opperation'] == 'leaveMessage':
+		return __leaveMessage(json['clientID'],json['payload'])
+	elif json['opperation'] == 'new':
+		return __newClient(json['clientID'])
+	return jsonify(status='bad')
+
+
+def __newClient(clientID):
+	clients[clientID] = Client(clientID)
+	return jsonify(status = 'done')
+
+def __leaveMessage(clientID,msg):
+	clients[clientID].leaveMessage(msg)
+	return jsonify(status='done')
+
+
+def __getMessage(clientID):
+	try:
+		return jsonify(status='done',payload=clients[clientID].nextMessage())
+	except:
+		return jsonify(status='done')
