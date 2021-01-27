@@ -1,5 +1,5 @@
 from flask import Flask,request,jsonify
-from src.client import Client
+from client import Client
 import json
 
 app = Flask(__name__)
@@ -18,28 +18,25 @@ def inbox():
 
 
 	if json['opperation'] == 'getMessage':
-		return __getMessage(json['clientID'])
+		return __get_message(json['clientID'])
 	elif json['opperation'] == 'leaveMessage':
-		return __leaveMessage(json['clientID'],json['payload'])
+		return __leave_message(json['clientID'],json['payload'])
 	elif json['opperation'] == 'new':
-		return __newClient(json['clientID'])
+		return __new_client(json['clientID'])
 	return jsonify(status='bad')
 
 
-def __newClient(clientID):
+def __new_client(clientID):
 	clients[clientID] = Client(clientID)
 	return jsonify(status = 'done')
 
-def __leaveMessage(clientID,msg):
-	clients[clientID].leaveMessage(msg)
+def __leave_message(clientID,msg):
+	clients[clientID].leave_message(msg)
 	return jsonify(status='done')
 
 
-def __getMessage(clientID):
+def __get_message(clientID):
 	try:
-		return jsonify(status='good',payload=clients[clientID].nextMessage())
+		return jsonify(status='good',payload=clients[clientID].next_message())
 	except:
 		return jsonify(status='done')
-
-if __name__ == '__main__':
-	app.run(host='0.0.0.0',port='80',ssl_context='adhoc')
