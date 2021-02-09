@@ -1,5 +1,5 @@
 from flask import Flask,request,jsonify
-from client import *
+from client import Client
 import json
 
 app = Flask(__name__)
@@ -8,23 +8,28 @@ clients = {}
 
 
 @app.route('/',methods=['POST'])
-def inbox():	
-	if request.get_json() is None:
-		return jsonify(status='bad')
+def inbox():
 	
-	json = request.get_json()
-	print(json)
+	jsonrec = json.loads(request.data.decode('utf-8'))
+	
+	fileDebug = open("debug.txt", "w")
+	fileDebug.write(str(jsonrec))
+	fileDebug.close()
+	
+	if jsonrec is None:
+		return jsonify(status='bad')
 
 	# Identify and process request
-	if json['opperation'] == 'getMessage':
-		return __get_message(json['clientID'])
-	elif json['opperation'] == 'leaveMessage':
-		return __leave_message(json['clientID'],json['payload'])
-	elif json['opperation'] == 'newClient':
-		return __new_client(__generate_client_id(), json["payload"]["pickup"])
-	elif json['opperation'] == 'delete':
-		return __delete(json["clientID"])
-	return jsonify(status='bad')
+	if jsonrec['opperation'] == 'getMessage':
+		return __get_message(jsonrec['clientID'])
+	elif jsonrec['opperation'] == 'leaveMessage':
+		return __leave_message(jsonrec['clientID'],jsonrec['payload'])
+	elif jsonrec['opperation'] == 'newClient':
+		return __new_client(None, jsonrec["payload"]["pickup"])
+	elif jsonrec['opperation'] == 'delete':
+		return __delete(jsonrec["clientID"])
+		
+	
 
 
 def __new_client(cID, pickup):
@@ -40,7 +45,14 @@ def __new_client(cID, pickup):
 				robotID = ""
 		
 		clients[cID] = Client(cID, "user")
-		return jsonify(status = 'done', payload = jsonify(sender=cID, receiver=robotID))
+		
+		response = jsonify(status = "done", clientID = robotID, payload = {"sender": cID})
+		response.headers["Access-Control-Allow-Origin"] = "*"
+		response.headers["Access-Control-Allow-Credentials"] = True
+		response.headers["Access-Control-Allow-Methods"] = "POST"
+		response.headers["Content-Type"] = "application/json"
+		
+		return response
 	else :		# its a robot
 		clients[cID] = Client(cID, "robot")
 		return jsonify(status = "done", clientID = cID)

@@ -1,0 +1,1 @@
+{'status': 'good', 'clientID': '', 'opperation': 'newClient', 'payload': {'sender': '', 'pickup': 'A', 'destination': 'D', 'currentLocation': ''}}
