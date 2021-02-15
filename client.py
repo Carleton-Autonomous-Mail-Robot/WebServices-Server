@@ -9,7 +9,7 @@ class Client:
         else:
             self.__clientID = clientID
         self.__messages = queue.Queue()
-        self.__ctype = ctype
+        
 
     def __generate_client_id(self):
         return randrange(2147483647)
