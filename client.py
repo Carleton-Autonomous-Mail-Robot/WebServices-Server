@@ -3,7 +3,7 @@ import queue
 
 class Client:
 
-    def __init__(self,clientID,ctype):
+    def __init__(self,clientID):
         if clientID is None:
             self.__clientID = self.__generate_client_id()
         else:

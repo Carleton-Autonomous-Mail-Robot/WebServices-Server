@@ -46,7 +46,7 @@ def __new_client(cID, pickup):
 			except:
 				robotID = ""
 		
-		clients[cID] = Client(cID, "user")
+		clients[cID] = Client(cID)
 		
 		response = jsonify(status = "done", clientID = robotID, payload = {"sender": cID})
 		response.headers["Access-Control-Allow-Origin"] = "*"
@@ -56,7 +56,7 @@ def __new_client(cID, pickup):
 		
 		return response
 	else :		# its a robot
-		clients[cID] = Client(cID, "robot")
+		clients[cID] = Client(cID)
 		return jsonify(status = "done", clientID = cID)
 
 
