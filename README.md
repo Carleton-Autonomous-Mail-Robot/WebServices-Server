@@ -2,6 +2,8 @@
 
 **Note: The Server is far from complete, the client is currently being worked on.**
 
+[![Build Status](https://travis-ci.org/Carleton-Autonomous-Mail-Robot/WebServices-Server.svg?branch=development)](https://travis-ci.org/Carleton-Autonomous-Mail-Robot/WebServices-Server)
+
 A web server which facilitates confidential communications with a client.
 All communications are encrypted, server doesn't care what the payload of the message is.
 The payload is passed to another system which handles it. This client server pair, is meant
