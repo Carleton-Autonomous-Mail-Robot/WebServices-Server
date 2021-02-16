@@ -1,4 +1,4 @@
-# WebServices-Server [![Build Status](https://travis-ci.org/Carleton-Autonomous-Mail-Robot/WebServices-Server.svg?branch=development)](https://travis-ci.org/Carleton-Autonomous-Mail-Robot/WebServices-Server)
+# WebServices-Server [![Build Status](https://travis-ci.com/Carleton-Autonomous-Mail-Robot/WebServices-Server.svg?branch=master)](https://travis-ci.com/Carleton-Autonomous-Mail-Robot/WebServices-Server)
 
 **Note: The Server is far from complete, the client is currently being worked on.**
 
