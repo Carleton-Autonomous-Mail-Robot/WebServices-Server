@@ -1,5 +1,5 @@
 import unittest
-from app.client import Client
+from client import Client
 
 class TestClient(unittest.TestCase):
 

@@ -1,6 +1,6 @@
 from flask import Flask,request,jsonify
 from flask_cors import CORS
-from app.client import Client
+from client import Client
 import json
 
 app = Flask(__name__)
@@ -80,3 +80,6 @@ def __returnResponse(status='bad',clientID = None, payload=None):
 		response.set_cookie('clientID',clientID)
 
 	return response
+
+if __name__ == '__main__':
+    app.run()
