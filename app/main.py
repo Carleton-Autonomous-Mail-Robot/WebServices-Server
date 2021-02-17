@@ -16,7 +16,7 @@ def inbox():
 	elif request.json['opperation'] == 'leaveMessage':
 		return __leave_message(request.json['clientID'],request.json['payload'])
 	elif request.json['opperation'] == 'newClient':
-		return __new_client()
+		return __new_client(request.json['payload'])
 	elif request.json['opperation'] == 'delete':
 		return __delete(request.json["clientID"])
 	else:
@@ -29,8 +29,8 @@ def hello():
 	
 
 
-def __new_client():
-	return __returnResponse(status = "done", clientID = mail_controller.newClient())
+def __new_client(msg):
+	return __returnResponse(status = "done", clientID = mail_controller.newClient(msg))
 
 
 def __leave_message(clientID,msg):

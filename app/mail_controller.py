@@ -11,7 +11,7 @@ class MailController():
     def newClient(self,msg:str)->int:
         while True:
             client = Client()
-            if exists(client.get_client_ID()) or client.get_client_ID() == 0:
+            if self.exists(client.get_client_ID()) or client.get_client_ID() == 0:
                 continue
             self.__clients[client.get_client_ID()] = client
             self.__scheduler.notifyNewClient(client.get_client_ID(),msg)
