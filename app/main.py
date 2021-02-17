@@ -1,6 +1,6 @@
 from flask import Flask,request,jsonify
 from flask_cors import CORS
-from client import Client
+from app.client import Client
 import json
 
 app = Flask(__name__)
@@ -22,6 +22,10 @@ def inbox():
 		return __delete(request.json["clientID"])
 	else:
 		return __returnResponse() #returns a bad request
+
+@app.route('/hello',methods=['GET'])
+def hello():
+	return "hello"
 		
 	
 
@@ -76,8 +80,3 @@ def __returnResponse(status='bad',clientID = None, payload=None):
 		response.set_cookie('clientID',clientID)
 
 	return response
-
-
-if __name__ == '__main__':
-    # Threaded option to enable multiple instances for multiple user access support
-    app.run(threaded=True, port=5000)
