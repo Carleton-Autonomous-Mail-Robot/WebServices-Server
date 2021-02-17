@@ -31,19 +31,18 @@ def hello():
 
 
 def __new_client():
-	client = Client()
-	clients[client.get_client_ID()] = client
-	return __returnResponse(status = "done", clientID = client.get_client_ID())
+	return __returnResponse(status = "done", clientID = mail_controller.newClient())
 
 
 def __leave_message(clientID,msg):
-	clients[clientID].leave_message(msg)
-	return __returnResponse(status='done')
+	if mail_controller.leaveMail(clientID,msg):
+		return __returnResponse(status='done')
+	return __returnResponse(status'bad')
 
 
 def __get_message(clientID):
 	try:
-		return __returnResponse(status='done',payload=clients[clientID].next_message())
+		return __returnResponse(status='done',payload=mail_controller.getMessage(clientID))
 	except:
 		return __returnResponse(status='bad')
 
