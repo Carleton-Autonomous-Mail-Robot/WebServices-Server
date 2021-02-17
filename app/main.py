@@ -1,6 +1,6 @@
 from flask import Flask,request,jsonify
 from flask_cors import CORS
-from client import Client
+from app.client import Client
 import json
 
 app = Flask(__name__)
@@ -81,5 +81,3 @@ def __returnResponse(status='bad',clientID = None, payload=None):
 
 	return response
 
-if __name__ == '__main__':
-    app.run()
