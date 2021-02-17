@@ -1,6 +1,5 @@
 from flask import Flask,request,jsonify
 from flask_cors import CORS
-from app.scheduler import Scheduler
 from app.mail_controller import MailController
 import json
 
@@ -37,14 +36,14 @@ def __new_client():
 def __leave_message(clientID,msg):
 	if mail_controller.leaveMail(clientID,msg):
 		return __returnResponse(status='done')
-	return __returnResponse(status'bad')
+	return __returnResponse()
 
 
 def __get_message(clientID):
 	try:
 		return __returnResponse(status='done',payload=mail_controller.getMessage(clientID))
 	except:
-		return __returnResponse(status='bad')
+		return __returnResponse()
 
 
 def __returnResponse(status='bad',clientID = None, payload=None):

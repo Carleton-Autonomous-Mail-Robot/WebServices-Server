@@ -1,10 +1,10 @@
-from app.mail_controller import MailController
+
 
 class Scheduler():
-    def __init__(self,mail_controller:MailController):
+    def __init__(self):
         self.__robots = list()
         self.__others = list()
-        self.__mail_controller = mail_controller
+        
 
     def notifyNewClient(self,client_id:int,client_type:str):
         if client_type == 'robot':
