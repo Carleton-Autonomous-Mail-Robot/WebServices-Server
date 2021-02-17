@@ -1,13 +1,13 @@
 from flask import Flask,request,jsonify
 from flask_cors import CORS
-from app.client import Client
+from app.scheduler import Scheduler
+from app.mail_controller import MailController
 import json
 
 app = Flask(__name__)
 CORS(app)
 
-clients = dict()
-
+mail_controller = MailController()
 
 @app.route('/',methods=['POST'])
 def inbox():
@@ -17,7 +17,7 @@ def inbox():
 	elif request.json['opperation'] == 'leaveMessage':
 		return __leave_message(request.json['clientID'],request.json['payload'])
 	elif request.json['opperation'] == 'newClient':
-		return __new_client(request.json["payload"]["type"])
+		return __new_client()
 	elif request.json['opperation'] == 'delete':
 		return __delete(request.json["clientID"])
 	else:
@@ -31,23 +31,9 @@ def hello():
 
 
 def __new_client():
-	if (pickup != "") :		# if there is a listed pickup, its a request from a user
-		robotID = ""
-		for x in clients :
-			# find a robot to service client
-			try:
-				if (clients[x].get_client_type() == "robot") :
-					robotID = clients[x].get_client_ID()
-					break
-			except:
-				robotID = ""
-		
-		clients[cID] = Client(cID)
-		
-		return response
-	else :		# its a robot
-		clients[cID] = Client(cID)
-		return __returnResponse(status = "done", clientID = cID)
+	client = Client()
+	clients[client.get_client_ID()] = client
+	return __returnResponse(status = "done", clientID = client.get_client_ID())
 
 
 def __leave_message(clientID,msg):
@@ -62,22 +48,12 @@ def __get_message(clientID):
 		return __returnResponse(status='bad')
 
 
-def __delete(clientID) :
-	try:
-		del clients[clientID]
-		return __returnResponse(status = "done")
-	except:
-		return __returnResponse(status = "bad")
-
 def __returnResponse(status='bad',clientID = None, payload=None):
-	response = jsonify(status = "done", clientID = robotID, payload = {"sender": cID})
+	response = jsonify(status = "done", clientID = clientID, payload = payload)
 	response.headers["Access-Control-Allow-Origin"] = "*"
 	response.headers["Access-Control-Allow-Credentials"] = True
 	response.headers["Access-Control-Allow-Methods"] = "POST"
 	response.headers["Content-Type"] = "application/json"
-	
-	if not (clientID is None):
-		response.set_cookie('clientID',clientID)
 
 	return response
 

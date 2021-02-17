@@ -14,9 +14,6 @@ class Client:
     def __generate_client_id(self):
         return randrange(2147483647)
 
-    def get_client_type(self):
-        return self.__ctype
-
     def get_client_ID(self):
         return self.__clientID
     
@@ -25,3 +22,4 @@ class Client:
     
     def next_message(self):
         return self.__messages.get()
+
