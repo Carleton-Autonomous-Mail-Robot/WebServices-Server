@@ -1,7 +1,7 @@
 import unittest
 from app.mail_controller import MailController
 
-class TestClient(unittest.TestCase):
+class TestMailController(unittest.TestCase):
 
     def test_new_client(self):
         mc = MailController()

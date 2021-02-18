@@ -2,7 +2,7 @@ import unittest
 from app.mail_controller import MailController
 from app.scheduler import Scheduler
 
-class TestClient(unittest.TestCase):
+class TestScheduler(unittest.TestCase):
     def test_constructor(self):
         mc = MailController()
         s = Scheduler(mc)
