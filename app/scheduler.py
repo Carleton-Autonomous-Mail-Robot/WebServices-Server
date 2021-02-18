@@ -20,6 +20,6 @@ class Scheduler():
         if msg == 'test':
             for robot in self.__robots:
                 if not self.__controller.has_mail(robot):
-                    self.__controller.leaveMail(robot)
+                    self.__controller.leaveMail(robot,msg)
                     return True
         return False
