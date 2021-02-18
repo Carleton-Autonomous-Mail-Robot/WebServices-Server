@@ -34,6 +34,7 @@ class MailController():
         when scheduler leaves mail, the mail is automatically deposited
     '''
     def leaveMail(self,client_id:str, msg:str)->bool:
+        id = int(client_id)
         try:
             self.__clients[id].leave_message(msg)
             return True
