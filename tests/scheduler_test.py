@@ -17,7 +17,7 @@ class TestScheduler(unittest.TestCase):
         uid = mc.newClient()
         s.notifyNewClient(rid,'robot')
         s.notifyNewClient(uid,'user')
-        self.assertTrue(s.message_handler(uid,'test1'))
+        self.assertTrue(s.message_handler(uid,'test'))
         self.assertFalse(s.message_handler(uid,'test2'))
 
         self.assertEqual('test',mc.getMail(str(rid)))
