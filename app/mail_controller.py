@@ -1,5 +1,4 @@
-from app.client import Client
-from app.scheduler import Scheduler
+import app
 
 class MailController():
     def __init__(self):
