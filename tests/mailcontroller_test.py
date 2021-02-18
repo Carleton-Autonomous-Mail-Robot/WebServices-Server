@@ -22,7 +22,7 @@ class TestMailController(unittest.TestCase):
 
         self.assertTrue(mc.leaveMail(str(rid),'test'))
         self.assertTrue(mc.leaveMail(str(uid),'test2'))
-        self.assertTrue(mc.has_mail(str(rid)))
+        self.assertTrue(mc.has_mail(rid))
         self.assertEqual('test',mc.getMail(str(rid)))
         self.assertEqual('test2',mc.getMail(str(uid)))
         
