@@ -15,10 +15,17 @@ class TestClient(unittest.TestCase):
         message2 = "Message 2"
         message3 = "Message 3"
     
+        self.assertEqual(client.inbox_size(),0)
         client.leave_message(message1)
+        self.assertEqual(client.inbox_size(),1)
         client.leave_message(message2)
+        self.assertEqual(client.inbox_size(),2)
         client.leave_message(message3)
+        self.assertEqual(client.inbox_size(),3)
 
         self.assertEqual(client.next_message(),message1)
+        self.assertEqual(client.inbox_size(),2)
         self.assertEqual(client.next_message(),message2)
+        self.assertEqual(client.inbox_size(),1)
         self.assertEqual(client.next_message(),message3)
+        self.assertEqual(client.inbox_size(),0)

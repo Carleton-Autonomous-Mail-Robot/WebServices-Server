@@ -22,4 +22,7 @@ class Client:
     
     def next_message(self):
         return self.__messages.get()
+    
+    def inbox_size(self):
+        return len(self.__messages)
 

@@ -1,9 +1,10 @@
-
+from app.mail_controller import MailController
 
 class Scheduler():
-    def __init__(self):
+    def __init__(self,mailcontroller:MailController):
         self.__robots = list()
         self.__others = list()
+        self.__controller = mailcontroller
         
 
     def notifyNewClient(self,client_id:int,client_type:str):
@@ -16,4 +17,9 @@ class Scheduler():
         will decide what todo with the message, and deposit the result in the appropriate mailbox
     '''
     def message_handler(self,client_id,msg)->bool:
-        return True
+        if msg == 'test':
+            for robot in self.__robots:
+                if not self.__controller.has_mail(robot):
+                    self.__controller.leave_message(robot)
+                    return True
+        return False
