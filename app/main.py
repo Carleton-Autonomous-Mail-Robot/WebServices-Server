@@ -1,6 +1,7 @@
 from flask import Flask,request,jsonify
 from flask_cors import CORS
 from app.mail_controller import MailController
+from app.scheduler import Scheduler
 import json
 
 app = Flask(__name__)
