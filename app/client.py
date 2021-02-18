@@ -24,5 +24,5 @@ class Client:
         return self.__messages.get()
     
     def inbox_size(self):
-        return len(self.__messages)
+        return self.__messages.qsize()
 
