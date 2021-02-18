@@ -1,4 +1,4 @@
-import app
+from app.client import Client
 
 class MailController():
     def __init__(self):
