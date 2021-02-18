@@ -7,6 +7,7 @@ app = Flask(__name__)
 CORS(app)
 
 mail_controller = MailController()
+scheduler = Scheduler(mail_controller)
 
 @app.route('/',methods=['POST'])
 def inbox():
@@ -30,11 +31,13 @@ def hello():
 
 
 def __new_client(msg):
-	return __returnResponse(status = "done", clientID = mail_controller.newClient(msg))
+	id = mail_controller.newClient()
+	scheduler.notifyNewClient(id,msg)
+	return __returnResponse(status = "done", clientID = id)
 
 
 def __leave_message(clientID,msg):
-	if mail_controller.leaveMail(clientID,msg):
+	if scheduler.message_handler(clientID,msg):
 		return __returnResponse(status='done')
 	return __returnResponse()
 

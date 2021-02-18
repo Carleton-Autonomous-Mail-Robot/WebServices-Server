@@ -1,4 +1,4 @@
-import app
+from app.client import Client
 class Scheduler():
     def __init__(self,mailcontroller:MailController):
         self.__robots = list()
