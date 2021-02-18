@@ -1,2 +1,0 @@
-Currently UML is unavailable, 
-transitioning UML workflow to Modelio

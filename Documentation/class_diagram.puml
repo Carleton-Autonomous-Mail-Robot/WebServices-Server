@@ -1,0 +1,30 @@
+@startuml
+class main{
+- mail_controller: MailController
++ inbox()
++ hello()
+- new_client()
+- leave_msg(clientID:int, msg:String)
+- get_msg(clientID:int, msg:String)
+- return Response
+}
+
+class mail_controller{
+ - clients:Dictionary
+
+ + MailController()
+ + newClient():int
+ + exists(client_id:int):bool
+ + getMail(client_id:int):String
+ + leaveMail(client_id:int,msg:String)
+}
+
+main *-- mail_controller
+mail_controller *-- client
+scheduler *-- mail_controller
+scheduler .. client
+
+
+
+
+@enduml
