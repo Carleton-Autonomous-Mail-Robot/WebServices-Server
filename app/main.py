@@ -38,16 +38,18 @@ def __new_client(msg):
 
 
 def __leave_message(clientID,msg):
-	if scheduler.message_handler(clientID,msg):
-		return __returnResponse(status='done')
-	return __returnResponse()
-
+	# Returns ID of the place msg is stored
+	cid = scheduler.message_handler(clientID, msg)
+	if cid == 0:
+		return __returnResponse(status='bad')
+	else:
+		return __returnResponse(status='done', clientID=cid)
 
 def __get_message(clientID):
 	try:
 		return __returnResponse(status='done',payload=mail_controller.getMessage(clientID))
 	except:
-		return __returnResponse()
+		return __returnResponse(status='bad')
 
 
 def __returnResponse(status='bad',clientID = None, payload=None):
