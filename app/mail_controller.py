@@ -14,7 +14,15 @@ class MailController():
             self.__clients[client.get_client_ID()] = client
             return client.get_client_ID()
     
-
+    def deleteClient(self, clientID):
+        success = False
+        x = 0
+        while x < len(self.__clients):
+            if client.get_client_ID() == clientID:
+                del self.__clients[x]
+                break
+            x = x + 1
+                
         
     def exists(self,client_id:int)->bool:
         return client_id in self.__clients.keys()

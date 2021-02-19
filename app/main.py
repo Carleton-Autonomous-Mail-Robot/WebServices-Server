@@ -22,14 +22,12 @@ def inbox():
 	elif request.json['opperation'] == 'delete':
 		return __delete(request.json["clientID"])
 	else:
-		return __returnResponse() #returns a bad request
+		return __returnResponse() # Returns a bad request
 
 @app.route('/hello',methods=['GET'])
 def hello():
 	return "hello"
 		
-	
-
 
 def __new_client(msg):
 	id = mail_controller.newClient()
@@ -45,12 +43,21 @@ def __leave_message(clientID,msg):
 	else:
 		return __returnResponse(status='done', clientID=cid)
 
+
 def __get_message(clientID):
 	try:
 		return __returnResponse(status='done',payload=mail_controller.getMessage(clientID))
 	except:
 		return __returnResponse(status='bad')
 
+
+def __delete(clientID):
+	if scheduler.delete(clientID):
+		mail_controller.deleteClient(clientID)
+		return __returnResponse(status='done')
+	else:
+		return __returnResponse(status='bad')
+		
 
 def __returnResponse(status='bad',clientID = None, payload=None):
 	response = jsonify(status = "done", clientID = clientID, payload = payload)

@@ -1,5 +1,7 @@
 from app.client import Client
 from app.mail_controller import MailController
+
+
 class Scheduler():
     def __init__(self,mailcontroller:MailController):
         self.__robots = list()
@@ -17,7 +19,6 @@ class Scheduler():
         will decide what todo with the message, and deposit the result in the appropriate mailbox
     '''
     def message_handler(self,client_id,msg)->int:
-        
         if client_id == "":     # Message from user
             # Find a free robot to provide service
             for robot in self.__robots:
@@ -29,3 +30,16 @@ class Scheduler():
             if self.__controller.exists(client_id):
                 self.__controller.leaveMail(client_id,msg)
             return client_id
+            
+    def delete(self, cid)->bool:
+        x = 0
+        while x < self.__robots:
+            if self.__robots[x] == cid:
+                self.__robots.remove(cid)
+                return True
+        while x < self.__others:
+            if self.__others[x] == cid:
+                self.__others.remove(cid)
+                return True
+        return False
+                
