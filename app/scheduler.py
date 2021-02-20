@@ -18,18 +18,18 @@ class Scheduler():
     '''
         will decide what todo with the message, and deposit the result in the appropriate mailbox
     '''
-    def message_handler(self,client_id,msg)->int:
+    def message_handler(self,client_id,msg)->bool:
         if client_id == "":     # Message from user
             # Find a free robot to provide service
             for robot in self.__robots:
                 if not self.__controller.has_mail(robot):
                     self.__controller.leaveMail(robot,msg)
-                    return robot
-            return 0
+                    return True
+            return False
         else:   # Current location updates
             if self.__controller.exists(client_id):
                 self.__controller.leaveMail(client_id,msg)
-            return client_id
+            return True
             
     def delete(self, cid)->bool:
         x = 0

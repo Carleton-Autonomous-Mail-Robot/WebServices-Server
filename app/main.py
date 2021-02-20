@@ -36,12 +36,11 @@ def __new_client(msg):
 
 
 def __leave_message(clientID,msg):
-	# Returns ID of the place msg is stored
-	cid = scheduler.message_handler(clientID, msg)
-	if cid == 0:
+	
+	if scheduler.message_handler(clientID, msg) == False:
 		return __returnResponse(status='bad')
 	else:
-		return __returnResponse(status='done', clientID=cid)
+		return __returnResponse(status='done')
 
 
 def __get_message(clientID):
