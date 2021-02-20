@@ -21,7 +21,9 @@ class Client:
         self.__messages.put(msg)
     
     def next_message(self):
-        return self.__messages.get()
+        if not self.__message.qsize() == 0:
+            return self.__messages.get()
+        return None
     
     def inbox_size(self):
         return self.__messages.qsize()
