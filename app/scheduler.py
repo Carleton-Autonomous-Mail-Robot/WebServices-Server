@@ -34,10 +34,10 @@ class Scheduler():
             else:
                 if self.__controller.exists(client_id):
                     self.__controller.leaveMail(client_id,msg)
-                return True
+                    return True
                 
         except:
-            return False
+            return True
             
     def delete(self, cid)->bool:
         x = 0

@@ -18,8 +18,8 @@ class TestScheduler(unittest.TestCase):
         uid = mc.newClient()
         s.notifyNewClient(rid,'robot')
         s.notifyNewClient(uid,'user')
-        self.assertTrue(s.message_handler(uid,json.dumps({'pickup': 'A','destination': 'B','currentLocation': ''})))
-        self.assertFalse(s.message_handler(uid,json.dumps({'pickup': 'C','destination': 'D','currentLocation': ''})))
+        self.assertTrue(s.message_handler(uid,{'pickup': 'A','destination': 'B','currentLocation': ''}))
+        self.assertFalse(s.message_handler(uid,{'pickup': 'C','destination': 'D','currentLocation': ''}))
 
-        self.assertEqual(json.dumps({'pickup': 'A','destination': 'B','currentLocation': ''}), mc.getMail(str(rid)))
+        self.assertEqual({'pickup': 'A','destination': 'B','currentLocation': ''}, mc.getMail(str(rid)))
 
