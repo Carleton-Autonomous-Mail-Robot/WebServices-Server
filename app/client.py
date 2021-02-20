@@ -21,7 +21,7 @@ class Client:
         self.__messages.put(msg)
     
     def next_message(self):
-        if not self.__message.qsize() == 0:
+        if not self.__messages.qsize() == 0:
             return self.__messages.get()
         return None
     
