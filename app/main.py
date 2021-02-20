@@ -37,7 +37,7 @@ def __new_client(msg):
 
 def __leave_message(clientID,msg):
 	
-	if scheduler.message_handler(clientID, msg) == False:
+	if not scheduler.message_handler(clientID, msg):
 		return __returnResponse(status='bad')
 	else:
 		return __returnResponse(status='done')
@@ -45,7 +45,7 @@ def __leave_message(clientID,msg):
 
 def __get_message(clientID):
 	try:
-		return __returnResponse(status='done',payload=mail_controller.getMessage(clientID))
+		return __returnResponse(status='done',payload=mail_controller.getMail(clientID))
 	except:
 		return __returnResponse(status='bad')
 
