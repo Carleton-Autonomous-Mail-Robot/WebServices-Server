@@ -1,4 +1,5 @@
 import unittest
+import json
 from app.mail_controller import MailController
 from app.scheduler import Scheduler
 
@@ -17,8 +18,8 @@ class TestScheduler(unittest.TestCase):
         uid = mc.newClient()
         s.notifyNewClient(rid,'robot')
         s.notifyNewClient(uid,'user')
-        self.assertTrue(s.message_handler(uid,'test'))
-        self.assertFalse(s.message_handler(uid,'test2'))
+        self.assertTrue(s.message_handler(uid,json.dumps({'pickup': 'A','destination': 'B','currentLocation': ''})))
+        self.assertFalse(s.message_handler(uid,json.dumps({'pickup': 'C','destination': 'D','currentLocation': ''})))
 
-        self.assertEqual('test',mc.getMail(str(rid)))
+        self.assertEqual(json.dumps({'pickup': 'A','destination': 'B','currentLocation': ''}), mc.getMail(str(rid)))
 
