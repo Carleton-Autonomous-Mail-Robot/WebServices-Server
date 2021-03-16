@@ -26,6 +26,8 @@ class Scheduler():
         if 'drive' in msg:
             self.__controller.leaveMail(self.get_robot_id(), '1,0')
             return True
+        if 'raw' in msg:
+            self.__controller.leaveMail(self.get_robot_id(),msg[3:])
         return False
         
 
