@@ -3,12 +3,14 @@ from flask_cors import CORS
 from app.mail_controller import MailController
 from app.scheduler import Scheduler
 import json
+import pymongo
 
 app = Flask(__name__)
 CORS(app)
 
+
 mail_controller = MailController()
-scheduler = Scheduler(mail_controller)
+scheduler = Scheduler()
 
 
 @app.route('/hello',methods=['GET'])
@@ -18,11 +20,10 @@ def hello():
 @app.route('/newClient',methods=['GET'])
 def new_client():
 	if request.args.get('robot') is None:
-		msg = None
+		msg = False
 	else:
-		msg = 'robot'
-	id = mail_controller.newClient()
-	scheduler.notifyNewClient(id,msg)
+		msg = True
+	id = mail_controller.newClient(msg)
 	return __returnResponse(status = "done", clientID = id)
 
 @app.route('/leaveMessage',methods=['POST'])
@@ -59,7 +60,7 @@ def delete():
 		
 
 def __returnResponse(status='bad',clientID = None, payload=None):
-	response = jsonify(status = "done", clientID = clientID, payload = payload)
+	response = jsonify(status = status, clientID = clientID, payload = payload)
 	response.headers["Access-Control-Allow-Origin"] = "*"
 	response.headers["Access-Control-Allow-Credentials"] = True
 	response.headers["Access-Control-Allow-Methods"] = "POST"
