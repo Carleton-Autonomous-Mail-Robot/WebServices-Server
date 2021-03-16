@@ -33,6 +33,12 @@ def leave_message():
 	else:
 		return __returnResponse(status='done')
 
+@app.route('/rawLeaveMessage',methods=['POST'])
+def raw_leave_message():
+	clientID = request.args.get('clientID')
+	scheduler.raw_robot_msg_controller(clientID, request.json['payload']):
+	return __returnResponse(status='done')
+
 
 @app.route('/getMessage',methods=['GET'])
 def get_message():
@@ -49,6 +55,7 @@ def delete():
 		return __returnResponse(status='done')
 	else:
 		return __returnResponse(status='bad')
+
 		
 
 def __returnResponse(status='bad',clientID = None, payload=None):
