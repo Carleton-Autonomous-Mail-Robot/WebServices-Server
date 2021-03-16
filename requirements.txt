@@ -2,5 +2,4 @@ flask
 PyCryptodome
 gunicorn
 flask_cors
-pymongo
 pymongo[srv]
