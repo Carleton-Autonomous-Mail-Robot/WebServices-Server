@@ -36,7 +36,7 @@ def leave_message():
 @app.route('/rawLeaveMessage',methods=['POST'])
 def raw_leave_message():
 	clientID = request.args.get('clientID')
-	scheduler.raw_robot_msg_controller(clientID, request.json['payload']):
+	scheduler.raw_robot_msg_controller(clientID, request.json['payload'])
 	return __returnResponse(status='done')
 
 
